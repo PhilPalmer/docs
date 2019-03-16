@@ -1,3 +1,3 @@
-# Bioinformatics
+# Bioinformatics
 
 ## File types
