@@ -46,7 +46,7 @@ See the [Official documentation](https://www.nextflow.io/docs/latest/index.html)
 
 # Patterns
 
-You can find Nextflow scripts for each of the examples here: https://github.com/PhilPalmer/docs/computing/nextflow-scripts
+You can find Nextflow scripts for each of the examples here: https://github.com/PhilPalmer/docs/tree/master/computing/nextflow-scripts
 
 *Inspired by [Nextflow patterns](http://nextflow-io.github.io/patterns/index.html)*
 
