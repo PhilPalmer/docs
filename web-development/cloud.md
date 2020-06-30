@@ -1,5 +1,0 @@
-# Cloud computing
-
-## AWS
-
-## Azure
