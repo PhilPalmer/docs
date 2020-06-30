@@ -1,0 +1,4 @@
+sample_id,vcf,index
+sample_1,data/vcfs/sample_1.vcf.gz,data/vcfs/sample_1.vcf.gz.csi
+sample_2,data/vcfs/sample_2.vcf.gz,data/vcfs/sample_2.vcf.gz.csi
+sample_3,data/vcfs/sample_3.vcf.gz,data/vcfs/sample_3.vcf.gz.csi

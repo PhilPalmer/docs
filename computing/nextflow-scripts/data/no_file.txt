@@ -1,0 +1,4 @@
+This is a dummy file
+This file can be used as input to a process if an optional input file is not set by the user.
+This stops Nextflow complaining because it does not like optional input files.
+It will not be used in the analysis
