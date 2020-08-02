@@ -142,6 +142,11 @@ nextflow run input_validation.nf
 
 ## Processes
 
+### Export bash varialbe to Nextflow
+```
+env()
+```
+
 ### Conditional input files
 Nextflow does not like having conditional input files for processes. Fortunately you can use optional input files like so
 ```
@@ -173,7 +178,7 @@ nextflow run optional_input.nf
 ```
 
 ### Conditional flags
-Here the `optional_flag` will only be present if the user has set the `optional_flag` Nextflow parameter
+Here the `optional_flag` will only be present if the user has set the `optional_flag` Nextflow parameter, otherwise it will be equal to an empty string
 ```
 process test {
 
@@ -189,18 +194,67 @@ process test {
 
 Run it:
 ```bash
-nextflow run optional_input.nf
+nextflow run optional_flag.nf
 ```
 
 ### Extra flags
+If you have many conditional input parameters and prefer to store them in a single variable you can use something like `extra_flags` here 
+```
+process test {
 
-### Last index of
+  echo true
 
+  script:
+  extra_flags = ''
+  if ( params.optional_flag  ) { extra_flags += " --optional_flag  ${params.optional_flag}"  }
+  if ( params.optional_flag2 ) { extra_flags += " --optional_flag2 ${params.optional_flag2}" }
+  if ( params.optional_flag3 ) { extra_flags += " --optional_flag3 ${params.optional_flag3}" }
+  """
+  some_command.sh $extra_flags
+  """
+}
+```
+
+Run it:
+```bash
+nextflow run extra_flags.nf
+```
+
+### Collect
+Collect can be used to group multiple files in the same channel and group them together. Here multiple files from the `vcfs` channel are all used as input to the same process and added one per line to a plain text file
+```
+process test {
+
+  input:
+  file(vcfs) from vcfs.collect()
+
+  script:
+  """
+  echo "${vcfs.join("\n")}" > vcfs.txt
+  """
+}
+```
+
+Run it:
+```
+nextflow run collect.nf
+```
 ---
 
 ## Transforming operators
 
+### Collect file
+
+```
+paired_info
+  .collectFile(name: "${params.outdir}/QC/tcga/paired_info.csv", keepHeader: true, skip: 1)
+```
+
 ### Reduce channel
+
+```
+vcfChannelReport = vcfChannelSnps.map { name, vcf -> vcf}
+```
 
 https://github.com/lifebit-ai/genetic-traits/blob/master/main.nf#L157
 
@@ -225,6 +279,9 @@ https://github.com/lifebit-ai/genetic-traits/blob/master/main.nf#L204-L210
 ---
 
 ## Groovy
+
+### Last index of
+Can be used to get the basename of a file from URL for example
 
 ### Helper functions
 ```
